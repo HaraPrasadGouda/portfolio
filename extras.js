@@ -1,0 +1,98 @@
+
+(function () {
+  "use strict";
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const CS = {
+    scam: { t: "Scam Shield", tag: "Solo project", problem: "Fake internship and job offers (\u201cpay \u20b9999 registration\u201d, \u201crefundable laptop deposit\u201d) target students who have never seen a real offer letter.",
+      built: "Paste a message or upload a PDF or screenshot and get a 0\u2013100 risk score, the exact red-flag lines quoted back, a company check, and a plain explanation in 8 Indian languages. It keeps working without AI or internet APIs: rules and a trained ML model run on-device, and Gemini adds deeper reasoning when available.",
+      tech: "Python, FastAPI, scikit-learn, Gemini", shots: ["shots/scam1.jpg", "shots/scam2.jpg"], result: "Trained on 17,880 real job postings. On 3,576 held-out ones, rules + ML flagged 83% of fakes (rules alone: 10%) and marked only 0.3% of genuine posts as Likely Scam. (Figures from the project README.)",
+      links: [["Live demo", "https://scam-shield-cxtg.onrender.com"], ["Code", "https://github.com/HaraPrasadGouda/scam-shield"]] },
+    sub: { t: "SubTrack", tag: "Team project \u00b7 Odoo x Make-A-Ton 9.0", problem: "A software company needs one place to run the whole subscription lifecycle: plans, quotations, recurring invoices with GST, payments and overdue reminders.",
+      built: "A full subscription management system: products and plans, quotation templates, subscriptions (draft \u2192 active, pause, renew, cancel), invoices with PDF, payments, dunning on day 1/3/7, and a customer self-service portal. I worked on the backend and API integration.",
+      tech: "React, Vite, Tailwind, FastAPI, SQLAlchemy, SQLite, JWT, pytest", result: "Built for the Odoo x Make-A-Ton 9.0 hackathon, with 45 automated tests and three role-based logins (admin, staff, portal customer).",
+      links: [["Code", "https://github.com/HaraPrasadGouda/subtrack-odoo"]] },
+    campus: { t: "CampusDebug OS", tag: "BPUT Hackathon 2026 finalist \u00b7 Team lead", problem: "Hostel gate passes, complaints, mess, attendance and cleaning run on paper and WhatsApp, so students wait and staff cannot see what is pending.",
+      built: "One installable web app with separate dashboards for students, wardens, teachers and admins: leave and gate passes with a rotating QR, hostel complaints tracked from report to close, attendance, mess and cleaning schedules, and notifications. I led team Tech-IQ and built the app.",
+      tech: "React, Node.js, Express, Supabase (Postgres), PWA", result: "Finalist at the BPUT Hackathon 2026 (finale at BPUT, Rourkela, 12\u201313 Nov). 240 automated tests pass on the codebase.",
+      links: [] }
+  };
+  const ids = ["scam", "sub", "campus"];
+  const cards = $$(".cards .card");
+  const dlg = document.createElement("div"); dlg.className = "cs"; dlg.id = "cs"; dlg.hidden = true; dlg.setAttribute("role", "dialog"); dlg.setAttribute("aria-modal", "true");
+  dlg.innerHTML = '<div class="cs-bg" data-x></div><div class="cs-box"><button class="cs-x" data-x aria-label="Close">\u00d7</button><div class="cs-body"></div></div>';
+  document.body.appendChild(dlg);
+  const body = dlg.querySelector(".cs-body"); let last = null, shotI = 0;
+  const esc = s => s.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+  function show() { $$("#cs .shot").forEach((e, i) => e.classList.toggle("on", i === shotI)); $$("#cs .dots i").forEach((e, i) => e.classList.toggle("on", i === shotI)); }
+  function open(k) {
+    const c = CS[k]; last = document.activeElement; shotI = 0;
+    let h = `<p class="cs-tag">${esc(c.tag)}</p><h3>${esc(c.t)}</h3>`;
+    if (c.shots) h += `<div class="slider"><div class="shots">${c.shots.map((s, i) => `<img class="shot${i ? "" : " on"}" src="${s}" alt="${esc(c.t)} screen ${i + 1}" loading="lazy" draggable="false">`).join("")}</div><button class="sl-n sl-p" aria-label="Previous">\u2039</button><button class="sl-n sl-nx" aria-label="Next">\u203a</button><div class="dots">${c.shots.map((s, i) => `<i class="${i ? "" : "on"}"></i>`).join("")}</div></div>`;
+    h += `<div class="cs-grid"><div><b>Problem</b><p>${esc(c.problem)}</p></div><div><b>What I built</b><p>${esc(c.built)}</p></div><div><b>Tech</b><p>${esc(c.tech)}</p></div><div><b>Result</b><p>${esc(c.result)}</p></div></div>`;
+    if (c.links.length) h += `<p class="cs-links">${c.links.map(l => `<a class="btn line" href="${l[1]}" target="_blank" rel="noopener"><span>${l[0]}</span><b aria-hidden="true">\u2197</b></a>`).join("")}</p>`; else h += `<p class="cs-note">Private repository.</p>`;
+    body.innerHTML = h; dlg.hidden = false; requestAnimationFrame(() => dlg.classList.add("in")); document.documentElement.classList.add("cs-open");
+    const p = body.querySelector(".sl-p"), n = body.querySelector(".sl-nx");
+    if (p) { const m = CS[k].shots.length; p.onclick = () => { shotI = (shotI + m - 1) % m; show(); }; n.onclick = () => { shotI = (shotI + 1) % m; show(); }; }
+    dlg.querySelector(".cs-x").focus();
+  }
+  function close() { dlg.classList.remove("in"); document.documentElement.classList.remove("cs-open"); setTimeout(() => { dlg.hidden = true; }, 220); if (last && last.focus) last.focus(); }
+  dlg.addEventListener("click", e => { if (e.target.hasAttribute("data-x")) close(); });
+  cards.forEach((c, i) => { const k = ids[i]; if (!k) return; c.tabIndex = 0; c.setAttribute("role", "button"); c.setAttribute("aria-label", "Open case study: " + CS[k].t);
+    const hint = document.createElement("span"); hint.className = "cs-hint"; hint.textContent = "case study \u2192"; c.appendChild(hint);
+    c.addEventListener("click", e => { if (e.target.closest("a")) return; open(k); });
+    c.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && !e.target.closest("a")) { e.preventDefault(); open(k); } }); });
+
+  // ---- command menu ( / ) ----
+  const ITEMS = [["Projects", "#work"], ["About", "#about"], ["Skills", "#stack"], ["Case study: Scam Shield", "cs:scam"], ["Case study: SubTrack", "cs:sub"], ["Case study: CampusDebug OS", "cs:campus"], ["GitHub", "https://github.com/HaraPrasadGouda"], ["LinkedIn", "https://www.linkedin.com/in/hara-prasad-gouda-a1121b371"], ["Resume (PDF)", "Hara_Prasad_Gouda_Resume.pdf"], ["Back to top", "#top"]];
+  const cm = document.createElement("div"); cm.className = "cmd"; cm.hidden = true; cm.setAttribute("role", "dialog"); cm.setAttribute("aria-label", "Command menu");
+  cm.innerHTML = '<div class="cs-bg" data-x></div><div class="cmd-box"><div class="cmd-in"><span class="pr">$</span><input id="cmdi" type="text" autocomplete="off" spellcheck="false" placeholder="type a command\u2026"></div><ul id="cmdl"></ul><p class="cmd-f">\u2191\u2193 move \u00b7 enter go \u00b7 esc close</p></div>';
+  document.body.appendChild(cm);
+  const inp = cm.querySelector("#cmdi"), list = cm.querySelector("#cmdl"); let sel = 0, shown = ITEMS;
+  function render() { const q = inp.value.trim().toLowerCase(); shown = ITEMS.filter(x => x[0].toLowerCase().includes(q)); sel = Math.min(sel, Math.max(0, shown.length - 1));
+    list.innerHTML = shown.length ? shown.map((x, i) => `<li data-i="${i}" class="${i === sel ? "on" : ""}"><span>${esc(x[0])}</span><em>${(x[1].startsWith("http") || x[1].endsWith(".pdf")) ? "\u2197" : x[1].startsWith("cs:") ? "case study" : "go"}</em></li>`).join("") : '<li class="none">no match</li>'; }
+  function openCmd() { if (!dlg.hidden) return; cm.hidden = false; inp.value = ""; sel = 0; render(); requestAnimationFrame(() => cm.classList.add("in")); inp.focus(); }
+  function closeCmd() { cm.classList.remove("in"); setTimeout(() => { cm.hidden = true; }, 160); }
+  function run(i) { const x = shown[i]; if (!x) return; closeCmd(); const v = x[1];
+    if (v.startsWith("http") || v.endsWith(".pdf")) window.open(v, "_blank", "noopener"); else if (v.startsWith("cs:")) setTimeout(() => open(v.slice(3)), 200);
+    else { const t = $(v); if (t) { const y = v === "#top" ? 0 : t.getBoundingClientRect().top + scrollY - 20; scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" }); } } }
+  inp.addEventListener("input", () => { sel = 0; render(); });
+  inp.addEventListener("keydown", e => { if (e.key === "ArrowDown") { sel = Math.min(sel + 1, shown.length - 1); render(); e.preventDefault(); } else if (e.key === "ArrowUp") { sel = Math.max(sel - 1, 0); render(); e.preventDefault(); } else if (e.key === "Enter") run(sel); });
+  list.addEventListener("click", e => { const li = e.target.closest("li[data-i]"); if (li) run(+li.dataset.i); });
+  cm.addEventListener("click", e => { if (e.target.hasAttribute("data-x")) closeCmd(); });
+  addEventListener("keydown", e => {
+    if (e.key === "Escape") { if (!dlg.hidden) close(); else if (!cm.hidden) closeCmd(); return; }
+    if (e.key === "/" && !e.ctrlKey && !e.metaKey && !/^(INPUT|TEXTAREA)$/.test((e.target.tagName || "")) && cm.hidden) { e.preventDefault(); openCmd(); }
+    if (!dlg.hidden && e.key === "ArrowRight") { const n = $("#cs .sl-nx"); n && n.click(); } if (!dlg.hidden && e.key === "ArrowLeft") { const n = $("#cs .sl-p"); n && n.click(); }
+  });
+  const hint = document.createElement("button"); hint.className = "kbd-hint"; hint.type = "button"; hint.innerHTML = "press <kbd>/</kbd> for menu"; hint.addEventListener("click", openCmd); document.body.appendChild(hint);
+
+  // ---- letter reveal on headings ----
+  function split(el) { if (el.dataset.sp) return; el.dataset.sp = 1; const t = el.textContent; el.setAttribute("aria-label", t); el.textContent = "";
+    t.split(/(\s+)/).forEach(w => { if (/^\s+$/.test(w)) { el.appendChild(document.createTextNode(" ")); return; } const wr = document.createElement("span"); wr.className = "w"; wr.setAttribute("aria-hidden", "true");
+      [...w].forEach((ch, i) => { const s = document.createElement("span"); s.className = "ch"; s.textContent = ch; s.style.transitionDelay = (i * 28) + "ms"; wr.appendChild(s); }); el.appendChild(wr); }); }
+  const heads = $$(".end-line");
+  if (!reduce && "IntersectionObserver" in window) { heads.forEach(h => { split(h); h.classList.add("rv"); });
+    const io = new IntersectionObserver(es => es.forEach(en => { en.target.classList.toggle("rv-in", en.isIntersecting); }), { threshold: .35 }); heads.forEach(h => io.observe(h)); }
+})();
+
+
+(function(){
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches; if(reduce)return;
+  const sec=document.getElementById("about"), lis=[...document.querySelectorAll(".ab-facts li")]; if(!sec||!lis.length)return;
+  const phone=()=>innerWidth<900;
+  const DIR=[[1,-.2,6],[.6,1,-8],[1.1,.7,5],[.4,-1,-6]];   // from right / below-right / far below / above
+  const cl=(v,a,b)=>Math.min(b,Math.max(a,v)); let done=false;
+  function tick(){
+    const vh=innerHeight, base=(vh*.92-sec.getBoundingClientRect().top)/(vh*.55);
+    lis.forEach((li,i)=>{
+      const p=cl(base-i*.12,0,1), e=1-Math.pow(1-p,3);
+      if(p>=1){ if(li.dataset.fx){li.style.transform="";li.style.opacity="";li.dataset.fx="";} return; }
+      const k=1-e, d=DIR[i%4], w=phone()?.35:1;
+      li.dataset.fx=1; li.style.opacity=(e).toFixed(2);
+      li.style.transform="translate("+(d[0]*420*w*k).toFixed(0)+"px,"+(d[1]*300*k).toFixed(0)+"px) rotate("+(d[2]*k*3).toFixed(1)+"deg) scale("+(.85+.15*e).toFixed(3)+")";
+    });
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();

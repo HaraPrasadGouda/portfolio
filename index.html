@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" data-v="1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hara Prasad Gouda — compiled into the cosmos</title>
+<meta name="description" content="Hara Prasad Gouda, CSE student at REC, Bhubaneswar. I build web apps that solve real-life problems.">
+<meta property="og:title" content="Hara Prasad Gouda — Web Developer">
+<meta property="og:description" content="CSE student at REC, Bhubaneswar. BPUT Hackathon 2026 finalist. I build web apps that solve real-life problems.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hara-portfolio.sites.tab.bot/">
+<meta property="og:image" content="https://hara-portfolio.sites.tab.bot/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hara Prasad Gouda — Web Developer">
+<meta name="twitter:description" content="CSE student at REC, Bhubaneswar. BPUT Hackathon 2026 finalist.">
+<meta name="twitter:image" content="https://hara-portfolio.sites.tab.bot/og.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#04050a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Unbounded:wght@500;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+<canvas id="orb" aria-hidden="true"></canvas>
+<div class="nebula" aria-hidden="true"></div>
+
+<header class="nav" data-ui>
+  <a class="mark" href="#top" aria-label="Back to top"><span class="br">{</span>hpg<span class="br">}</span></a>
+  <nav aria-label="Primary">
+    <span class="prog" aria-hidden="true">build <span id="bar">░░░░░░░░░░</span> <span id="pct">0%</span></span>
+    <a href="#work">work</a>
+    <a href="#about">about</a>
+    <a href="https://github.com/HaraPrasadGouda" target="_blank" rel="noopener">github ↗</a>
+  </nav>
+</header>
+
+<div class="term" id="term" aria-hidden="true">
+  <div class="tbar"><i></i><i></i><i></i><span>~/hara — zsh</span></div>
+  <pre id="tlog"></pre>
+  <button class="skip" id="skip" type="button" aria-label="Skip intro">skip ⏎</button>
+</div>
+
+<main id="top">
+  <section class="hero" aria-label="Intro">
+    <div class="hl">
+    <p class="hi" data-ui>Hi, I'm</p>
+    <div class="namewrap" id="namewrap"><h1 class="name" id="name"><span class="ln">Hara Prasad</span> <span class="ln">Gouda</span></h1></div>
+    <p class="tag" data-ui>I build web apps that solve real problems, from spotting scams to running hostel gate passes.</p>
+    <div class="ctas" data-ui>
+      <a class="btn solid" href="#work"><span>View work</span><b aria-hidden="true">→</b></a>
+      <a class="btn line" href="https://github.com/HaraPrasadGouda" target="_blank" rel="noopener"><span>GitHub</span><b aria-hidden="true">↗</b></a>
+    </div>
+    <ul class="stack" data-ui aria-label="Skills">
+      <li>C</li><li>C++</li><li>JavaScript</li><li>React</li><li>Node.js</li><li>Supabase</li><li>HTML</li><li>CSS</li><li>Docker</li><li>Git</li><li>GitHub</li>
+    </ul>
+    </div>
+    <div class="pslot" id="pslot" aria-hidden="true"></div>
+    <aside class="pcard" id="pcard" aria-label="Photo of Hara Prasad Gouda"><div class="pc-drop" id="pcdrop"><i class="pc-line"></i><div class="pc-flip" id="pcflip"><div class="pc-in" id="pcin"><img src="hara.jpg" alt="Hara Prasad Gouda" width="700" height="1036" draggable="false"><div class="pc-cap"><b>Hara Prasad Gouda</b><span>2nd-year CSE · REC, Bhubaneswar</span></div></div><div class="pc-back" id="pcback" aria-hidden="true"></div></div></div></aside>
+    <p class="typed" data-ui aria-hidden="true"><span class="pr">$</span> <span id="typed"></span><i class="tcur"></i></p>
+    <p class="avail" data-ui><i class="ad"></i>available for work · Bhubaneswar, IN</p>
+    <div class="hint" data-ui aria-hidden="true"><span>scroll</span><i></i></div>
+  </section>
+
+  <section class="work" id="work" aria-label="Projects">
+    <p class="wk-head"><span class="pr">$</span> ./hara --projects <span class="mute">// 3 projects</span></p>
+    <h2 class="big" id="big">Selected work</h2>
+    <div class="cards">
+      <article class="card">
+        <p class="idx">01</p>
+        <h2>Scam Shield</h2>
+        <p class="what">Solo project · helps people spot scam messages before they fall for them.</p>
+        <a class="cl" href="https://github.com/HaraPrasadGouda/scam-shield" target="_blank" rel="noopener">code ↗</a>
+      </article>
+      <article class="card">
+        <p class="idx">02</p>
+        <h2>SubTrack</h2>
+        <p class="what">Team project · Odoo x Make-A-Ton · keeps every subscription and renewal in one place.</p>
+        <a class="cl" href="https://github.com/HaraPrasadGouda/subtrack-odoo" target="_blank" rel="noopener">code ↗</a>
+      </article>
+      <article class="card hl" id="card3">
+        <p class="idx">03</p>
+        <h2>CampusDebug OS</h2>
+        <p class="what">BPUT Hackathon 2026 finalist · Team lead · hostel gate passes, mess and complaints in one app.</p>
+        <span class="cl muted">private repo</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="about" id="about" aria-label="About">
+    <p class="wk-head"><span class="pr">$</span> cat about.md</p>
+    <div class="ab-grid">
+      <p class="ab-text" id="abtext">I'm a 2nd-year CSE student at REC, Bhubaneswar. I like finding real-life problems and turning them into simple apps people can actually use. I lead team Tech-IQ, a BPUT Hackathon 2026 finalist, where I built CampusDebug OS, a full campus app with roles for students, wardens, teachers and admins. I write C and C++ for problem solving and HTML, CSS, JavaScript, React, Node.js and Supabase for the web, and Docker to ship it, with Git and GitHub for version control.</p>
+      <ul class="ab-facts">
+        <li><b>Studying</b><span>B.Tech CSE, REC</span></li>
+        <li><b>Based in</b><span>Bhubaneswar, India</span></li>
+        <li><b>Recent</b><span>BPUT Hackathon 2026 finalist</span></li>
+        <li><b>Working with</b><span>C, C++, JavaScript, React, Node.js, Supabase, HTML, CSS, Docker, Git, GitHub</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="stackx" id="stack" aria-label="Stack">
+    <p class="wk-head"><span class="pr">$</span> cat stack.txt</p>
+    <div class="row r1" aria-hidden="true"><span>C ✦ C++ ✦ JavaScript ✦ React ✦ Node.js ✦ Supabase ✦ HTML ✦ CSS ✦ Docker ✦ Git ✦ GitHub ✦ C ✦ C++ ✦ JavaScript ✦ React ✦ Node.js ✦ Supabase ✦ HTML ✦ CSS ✦ Docker ✦ Git ✦ GitHub ✦</span></div>
+    <div class="row r2" aria-hidden="true"><span>GitHub ✦ Git ✦ Docker ✦ CSS ✦ HTML ✦ Supabase ✦ Node.js ✦ React ✦ JavaScript ✦ C++ ✦ C ✦ GitHub ✦ Git ✦ Docker ✦ CSS ✦ HTML ✦ Supabase ✦ Node.js ✦ React ✦ JavaScript ✦ C++ ✦ C ✦</span></div>
+    <p class="sr">Skills: C, C++, JavaScript, React, Node.js, Supabase, HTML, CSS, Docker, Git, GitHub.</p>
+    <div class="end">
+      <p class="mute">// end of file</p>
+      <p class="end-line">Let's build something useful.</p>
+      <div class="end-links"><a class="btn solid" href="https://github.com/HaraPrasadGouda" target="_blank" rel="noopener"><span>GitHub</span><b aria-hidden="true">↗</b></a>
+      <a class="btn line" href="https://www.linkedin.com/in/hara-prasad-gouda-a1121b371" target="_blank" rel="noopener"><span>LinkedIn</span><b aria-hidden="true">↗</b></a>
+      <a class="btn line" href="Hara_Prasad_Gouda_Resume.pdf" target="_blank" rel="noopener" download><span>Resume</span><b aria-hidden="true">↓</b></a></div>
+    </div>
+  </section>
+</main>
+<div class="cur" id="cur" aria-hidden="true"><i class="ring"><span id="curl">view</span></i><i class="dot"></i></div>
+<script src="main.js"></script>
+<script src="orb.js"></script>
+<script src="extras.js"></script>
+</body>
+</html>
