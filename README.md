@@ -1,7 +1,5 @@
 # Hara Prasad Gouda: Portfolio
 
-Live site: https://hara-portfolio.sites.tab.bot/
-
 A one-page developer portfolio built for the **One Who Codes 2026** challenge. It opens with a short terminal intro, then my name is compiled out of particles that drift into the night sky.
 
 ## What is on the page

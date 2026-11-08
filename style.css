@@ -291,3 +291,8 @@ html.has-cur input{cursor:text!important}
 @media (max-width:700px){.how{height:300vh}.how-body{flex-direction:column;align-items:flex-start;gap:6px}.how-n{font-size:clamp(70px,24vw,120px)}}
 
 html,body{overflow-x:clip!important}
+
+/* cards: pointer everywhere inside, never the text I-beam */
+.card,.card *{cursor:pointer!important;user-select:none}
+.card a{cursor:pointer!important}
+.card .muted{cursor:default!important}
