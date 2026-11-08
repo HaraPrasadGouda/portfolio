@@ -278,3 +278,16 @@ html.has-cur input{cursor:text!important}
 /* Selected work: smaller so both lines fit */
 .big{font-size:clamp(32px,5.6vw,92px)!important;line-height:1.05}
 @media (max-width:700px){.big{font-size:clamp(30px,9.6vw,64px)!important}}
+
+/* how I build: pinned, scroll-driven */
+.how{position:relative;z-index:1;height:340vh;margin-top:40px}
+.how-pin{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;max-width:1240px;margin:0 auto;padding:0 clamp(18px,5vw,72px)}
+.how-body{display:flex;gap:clamp(18px,4vw,60px);align-items:center;margin-top:18px}
+.how-n{font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(90px,18vw,260px);line-height:.9;margin:0;color:transparent;-webkit-text-stroke:2px rgba(157,255,196,.55);transition:opacity .3s}
+.how-h{font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(26px,4.2vw,60px);line-height:1.08;margin:0 0 16px;text-transform:uppercase;letter-spacing:-.02em}
+.how-p{font-size:clamp(16px,1.6vw,21px);line-height:1.7;max-width:640px;margin:0;color:var(--ink)}
+.how-txt{transition:opacity .35s,transform .35s}.how-txt.sw,.how-n.sw{opacity:0}.how-txt.sw{transform:translateY(14px)}
+.how-bar{height:3px;background:rgba(255,255,255,.1);border-radius:3px;margin-top:34px;overflow:hidden}.how-bar i{display:block;height:100%;width:0;background:var(--g)}
+@media (max-width:700px){.how{height:300vh}.how-body{flex-direction:column;align-items:flex-start;gap:6px}.how-n{font-size:clamp(70px,24vw,120px)}}
+
+html,body{overflow-x:clip!important}

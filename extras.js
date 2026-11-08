@@ -96,3 +96,17 @@
   }
   requestAnimationFrame(tick);
 })();
+
+(function(){
+  const sec=document.getElementById("how"); if(!sec)return;
+  const S=[["Find a real problem","Scam Shield came from fake internship offers that target students. CampusDebug OS came from hostel gate passes and complaints that ran on paper and WhatsApp. I start where people actually lose time or money."],
+           ["Build it end to end","React and Node.js on the web, Supabase for data, FastAPI where it fits. I led team Tech-IQ and built the CampusDebug OS app, with separate dashboards for students, wardens, teachers and admins."],
+           ["Test it before showing it","240 automated tests on CampusDebug OS, 45 on SubTrack, and a held-out test set for the Scam Shield model. If it is not tested, it is not done."]];
+  const n=document.getElementById("hown"),h=document.getElementById("howh"),p=document.getElementById("howp"),bar=document.getElementById("howbar"),tx=document.querySelector(".how-txt");
+  let cur=-1;
+  function set(i){ if(i===cur)return; const first=cur<0; cur=i; const go=()=>{n.textContent="0"+(i+1);h.textContent=S[i][0];p.textContent=S[i][1];n.classList.remove("sw");tx.classList.remove("sw");};
+    if(first){go();return;} n.classList.add("sw");tx.classList.add("sw");setTimeout(go,260); }
+  function tick(){ const r=sec.getBoundingClientRect(),tot=sec.offsetHeight-innerHeight; const pr=Math.min(1,Math.max(0,-r.top/tot));
+    set(Math.min(2,Math.floor(pr*3.0001))); bar.style.width=(pr*100).toFixed(1)+"%"; requestAnimationFrame(tick); }
+  set(0); requestAnimationFrame(tick);
+})();
