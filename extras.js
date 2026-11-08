@@ -11,7 +11,7 @@
     sub: { t: "SubTrack", tag: "Team project \u00b7 Odoo x Make-A-Ton 9.0", problem: "A software company needs one place to run the whole subscription lifecycle: plans, quotations, recurring invoices with GST, payments and overdue reminders.",
       built: "A full subscription management system: products and plans, quotation templates, subscriptions (draft \u2192 active, pause, renew, cancel), invoices with PDF, payments, dunning on day 1/3/7, and a customer self-service portal. I worked on the backend and API integration.",
       tech: "React, Vite, Tailwind, FastAPI, SQLAlchemy, SQLite, JWT, pytest", result: "Built for the Odoo x Make-A-Ton 9.0 hackathon, with 45 automated tests and three role-based logins (admin, staff, portal customer).",
-      links: [["Code", "https://github.com/HaraPrasadGouda/subtrack-odoo"]] },
+      shots: ["shots/sub_dashboard.jpg", "shots/sub_subscriptions.jpg"], links: [["Code", "https://github.com/HaraPrasadGouda/subtrack-odoo"]] },
     campus: { t: "CampusDebug OS", tag: "BPUT Hackathon 2026 finalist \u00b7 Team lead", problem: "Hostel gate passes, complaints, mess, attendance and cleaning run on paper and WhatsApp, so students wait and staff cannot see what is pending.",
       built: "One installable web app with separate dashboards for students, wardens, teachers and admins: leave and gate passes with a rotating QR, hostel complaints tracked from report to close, attendance, mess and cleaning schedules, and notifications. I led team Tech-IQ and built the app.",
       tech: "React, Node.js, Express, Supabase (Postgres), PWA", result: "Finalist at the BPUT Hackathon 2026 (finale at BPUT, Rourkela, 12\u201313 Nov). 240 automated tests pass on the codebase.",
