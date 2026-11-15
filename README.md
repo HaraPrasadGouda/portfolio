@@ -12,7 +12,7 @@ A one-page developer portfolio built for the **One Who Codes 2026** challenge. I
 - A command menu: press `/` (or the `/` button in the nav) to jump to any section or project
 - A hidden interactive terminal: press `t`, then try `help`, `projects`, `whoami`, `cat about.md`
 - About section as a bento grid whose cards fly in on scroll
-- Skills lines that keep moving, and contact links (GitHub, email, LinkedIn)
+- Skills lines that keep moving, and contact links (GitHub, LinkedIn)
 
 ## Original effects
 Every effect is written from scratch in plain JavaScript and WebGL/Canvas: the particle name, the terminal intro, the scroll-driven orb, the flying photo card with its spring, the case-study popups, the command menu and the scroll reveals. There are no animation libraries and no template code.
