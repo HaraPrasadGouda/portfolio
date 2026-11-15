@@ -292,6 +292,34 @@ html.has-cur input{cursor:text!important}
 
 html,body{overflow-x:clip!important}
 
+/* project card thumbnails */
+.card .thumb{position:relative;margin:0 0 18px;border:1px solid var(--line);border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:#05070f}
+.card .thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.card .thumb.lite{background:linear-gradient(160deg,#eef7f1,#cfe9d9)}
+.card .thumb.lite img{object-fit:contain;object-position:center;padding:10%}
+.card .cls{margin-top:20px;display:flex;gap:16px;flex-wrap:wrap}
+.card .cls .cl{margin-top:0}
+/* campus cover on the photo-card back (pc-back has no .card ancestor, so it needs its own sizing) */
+.pc-back .thumb{position:relative;height:96px;flex-shrink:0;margin:0 0 12px;border:1px solid rgba(255,138,92,.25);border-radius:12px;overflow:hidden;background:#f5fbf6}
+.pc-back .thumb img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;padding:2%}
+.pc-back:has(.thumb){padding-top:20px}
+.pc-back:has(.thumb) h2{margin:12px 0 10px;font-size:20px}
+
+/* interactive terminal (press t) */
+.it{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;transition:opacity .2s}
+.it[hidden]{display:none}.it.in{opacity:1}
+.it-box{position:relative;width:min(700px,100%);border:1px solid rgba(157,255,196,.22);border-radius:12px;background:rgba(6,10,12,.94);box-shadow:0 40px 90px -30px #000,0 0 60px -20px rgba(157,255,196,.18);overflow:hidden;transform:translateY(14px) scale(.98);transition:transform .25s}
+.it.in .it-box{transform:none}
+.it-box .cs-x{top:2px;right:8px}
+.it-log{height:min(46vh,400px);overflow:auto;padding:18px 20px;font:14.5px/1.75 var(--mono);color:var(--g);white-space:pre-wrap;word-break:break-word}
+.it-log .o{color:#6f8a7c}.it-log .k{color:#ffd28a}.it-log .u{color:var(--ice)}
+.it-log a{color:var(--g);text-decoration:underline;text-underline-offset:3px}
+.it-log div:last-child{padding-bottom:2px}
+.it-in{display:flex;gap:9px;align-items:center;padding:13px 20px;border-top:1px solid rgba(157,255,196,.14)}
+.it-in .p{color:var(--g)}
+.it-in input{flex:1;background:none;border:0;outline:0;color:var(--ink);font:inherit;font-size:14.5px}
+@media (max-width:700px){.it-log{height:52vh;font-size:13px;padding:14px}.it-in{padding:11px 14px}}
+
 /* cards: pointer everywhere inside, never the text I-beam */
 .card,.card *{cursor:pointer!important;user-select:none}
 .card a{cursor:pointer!important}

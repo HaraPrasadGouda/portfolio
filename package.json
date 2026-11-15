@@ -1,0 +1,15 @@
+{
+  "name": "portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Hara Prasad Gouda's personal portfolio",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "pngjs": "^7.0.0",
+    "vite": "^6.0.0"
+  }
+}

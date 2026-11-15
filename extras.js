@@ -14,8 +14,8 @@
       shots: ["shots/sub_dashboard.jpg", "shots/sub_subscriptions.jpg"], links: [["Code", "https://github.com/HaraPrasadGouda/subtrack-odoo"]] },
     campus: { t: "CampusDebug OS", tag: "BPUT Hackathon 2026 finalist \u00b7 Team lead", problem: "Hostel gate passes, complaints, mess, attendance and cleaning run on paper and WhatsApp, so students wait and staff cannot see what is pending.",
       built: "One installable web app with separate dashboards for students, wardens, teachers and admins: leave and gate passes with a rotating QR, hostel complaints tracked from report to close, attendance, mess and cleaning schedules, and notifications. I led team Tech-IQ and built the app.",
-      tech: "React, Node.js, Express, Supabase (Postgres), PWA", result: "Finalist at the BPUT Hackathon 2026 (finale at BPUT, Rourkela, 12\u201313 Nov). 240 automated tests pass on the codebase.",
-      links: [] }
+      tech: "React 19, Node.js, Express 5, Supabase (Postgres), PWA, ESP32 IoT sensors", result: "Finalist at the BPUT Hackathon 2026 (finale at BPUT, Rourkela, 12\u201313 Nov). 240 automated tests pass on the codebase.",
+      links: [["Code", "https://github.com/HaraPrasadGouda/CampusDebug-OS"]] }
   };
   const ids = ["scam", "sub", "campus"];
   const cards = $$(".cards .card");
@@ -44,17 +44,18 @@
     c.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && !e.target.closest("a")) { e.preventDefault(); open(k); } }); });
 
   // ---- command menu ( / ) ----
-  const ITEMS = [["Projects", "#work"], ["About", "#about"], ["Skills", "#stack"], ["Case study: Scam Shield", "cs:scam"], ["Case study: SubTrack", "cs:sub"], ["Case study: CampusDebug OS", "cs:campus"], ["GitHub", "https://github.com/HaraPrasadGouda"], ["LinkedIn", "https://www.linkedin.com/in/hara-prasad-gouda-a1121b371"], ["Resume (PDF)", "Hara_Prasad_Gouda_Resume.pdf"], ["Back to top", "#top"]];
+  const ITEMS = [["Projects", "#work"], ["About", "#about"], ["Skills", "#stack"], ["Case study: Scam Shield", "cs:scam"], ["Case study: SubTrack", "cs:sub"], ["Case study: CampusDebug OS", "cs:campus"], ["Interactive terminal", "term:"], ["GitHub", "https://github.com/HaraPrasadGouda"], ["LinkedIn", "https://www.linkedin.com/in/hara-prasad-gouda-a1121b371"], ["Resume (PDF)", "Hara_Prasad_Gouda_Resume.pdf"], ["Back to top", "#top"]];
   const cm = document.createElement("div"); cm.className = "cmd"; cm.hidden = true; cm.setAttribute("role", "dialog"); cm.setAttribute("aria-label", "Command menu");
   cm.innerHTML = '<div class="cs-bg" data-x></div><div class="cmd-box"><div class="cmd-in"><span class="pr">$</span><input id="cmdi" type="text" autocomplete="off" spellcheck="false" placeholder="type a command\u2026"></div><ul id="cmdl"></ul><p class="cmd-f">\u2191\u2193 move \u00b7 enter go \u00b7 esc close</p></div>';
   document.body.appendChild(cm);
   const inp = cm.querySelector("#cmdi"), list = cm.querySelector("#cmdl"); let sel = 0, shown = ITEMS;
   function render() { const q = inp.value.trim().toLowerCase(); shown = ITEMS.filter(x => x[0].toLowerCase().includes(q)); sel = Math.min(sel, Math.max(0, shown.length - 1));
-    list.innerHTML = shown.length ? shown.map((x, i) => `<li data-i="${i}" class="${i === sel ? "on" : ""}"><span>${esc(x[0])}</span><em>${(x[1].startsWith("http") || x[1].endsWith(".pdf")) ? "\u2197" : x[1].startsWith("cs:") ? "case study" : "go"}</em></li>`).join("") : '<li class="none">no match</li>'; }
+    list.innerHTML = shown.length ? shown.map((x, i) => `<li data-i="${i}" class="${i === sel ? "on" : ""}"><span>${esc(x[0])}</span><em>${(x[1].startsWith("http") || x[1].endsWith(".pdf")) ? "\u2197" : x[1].startsWith("cs:") ? "case study" : x[1].startsWith("term:") ? "open" : "go"}</em></li>`).join("") : '<li class="none">no match</li>'; }
   function openCmd() { if (!dlg.hidden) return; cm.hidden = false; inp.value = ""; sel = 0; render(); requestAnimationFrame(() => cm.classList.add("in")); inp.focus(); }
   function closeCmd() { cm.classList.remove("in"); setTimeout(() => { cm.hidden = true; }, 160); }
   function run(i) { const x = shown[i]; if (!x) return; closeCmd(); const v = x[1];
     if (v.startsWith("http") || v.endsWith(".pdf")) window.open(v, "_blank", "noopener"); else if (v.startsWith("cs:")) setTimeout(() => open(v.slice(3)), 200);
+    else if (v.startsWith("term:")) setTimeout(openTerm, 200);
     else { const t = $(v); if (t) { const y = v === "#top" ? 0 : t.getBoundingClientRect().top + scrollY - 20; scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" }); } } }
   inp.addEventListener("input", () => { sel = 0; render(); });
   inp.addEventListener("keydown", e => { if (e.key === "ArrowDown") { sel = Math.min(sel + 1, shown.length - 1); render(); e.preventDefault(); } else if (e.key === "ArrowUp") { sel = Math.max(sel - 1, 0); render(); e.preventDefault(); } else if (e.key === "Enter") run(sel); });
@@ -65,7 +66,78 @@
     if (e.key === "/" && !e.ctrlKey && !e.metaKey && !/^(INPUT|TEXTAREA)$/.test((e.target.tagName || "")) && cm.hidden) { e.preventDefault(); openCmd(); }
     if (!dlg.hidden && e.key === "ArrowRight") { const n = $("#cs .sl-nx"); n && n.click(); } if (!dlg.hidden && e.key === "ArrowLeft") { const n = $("#cs .sl-p"); n && n.click(); }
   });
-  const hint = document.createElement("button"); hint.className = "kbd-hint"; hint.type = "button"; hint.innerHTML = "press <kbd>/</kbd> for menu"; hint.addEventListener("click", openCmd); document.body.appendChild(hint);
+  const hint = document.createElement("button"); hint.className = "kbd-hint"; hint.type = "button"; hint.innerHTML = "press <kbd>/</kbd> menu · <kbd>t</kbd> terminal"; hint.addEventListener("click", openCmd); document.body.appendChild(hint);
+
+  // ---- interactive terminal easter egg (press t, or / menu → Interactive terminal) ----
+  const it = document.createElement("div"); it.className = "it"; it.hidden = true; it.setAttribute("role", "dialog"); it.setAttribute("aria-modal", "true"); it.setAttribute("aria-label", "Interactive terminal");
+  it.innerHTML = '<div class="cs-bg" data-x></div><div class="it-box"><div class="tbar"><i></i><i></i><i></i><span>~/hara — zsh</span></div><div class="it-log" id="itlog" aria-live="polite"></div><div class="it-in"><span class="p">$</span><input id="iti" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command"></div><button class="cs-x" data-x aria-label="Close terminal">\u00d7</button></div>';
+  document.body.appendChild(it);
+  const itlog = it.querySelector("#itlog"), iti = it.querySelector("#iti");
+  const U = (t, h) => `<a href="${h}" target="_blank" rel="noopener">${t}</a>`;
+  function print(html) { const d = document.createElement("div"); d.innerHTML = html; itlog.appendChild(d); itlog.scrollTop = itlog.scrollHeight; }
+  function openTerm() { if (!dlg.hidden || !cm.hidden) return; it.hidden = false; it.classList.add("in"); document.documentElement.classList.add("cs-open");
+    if (!itlog.dataset.hi) { itlog.dataset.hi = 1;
+      print('<span class="k">~/hara</span> \u2014 interactive shell. Type <span class="u">help</span> to look around.'); }
+    iti.value = ""; setTimeout(() => iti.focus(), 60); }
+  function closeTerm() { it.classList.remove("in"); document.documentElement.classList.remove("cs-open"); setTimeout(() => { it.hidden = true; }, 180); if (last && last.focus) last.focus(); }
+  const ABOUT = "I'm a 2nd-year CSE student at REC, Bhubaneswar. I like finding real-life problems and turning them into simple apps people can actually use. I lead team Tech-IQ, a BPUT Hackathon 2026 finalist.";
+  const CMDS = {
+    help() { return ['<span class="k">commands</span>',
+      '  <span class="u">whoami</span>      who is this',
+      '  <span class="u">projects</span>    what I built \u00b7 try <span class="u">scam</span> / <span class="u">sub</span> / <span class="u">campus</span>',
+      '  <span class="u">skills</span>      tech I work with',
+      '  <span class="u">contact</span>     find me online',
+      '  <span class="u">resume</span>      open the PDF',
+      '  <span class="u">ls</span> · <span class="u">cat</span>    poke around the files',
+      '  <span class="u">clear</span> · <span class="u">exit</span>'].join("\n"); },
+    whoami() { return '<b>Hara Prasad Gouda</b> \u2014 2nd-year CSE student at REC, Bhubaneswar. I build web apps that solve real problems, from spotting scams to running hostel gate passes.'; },
+    projects() { return ['<span class="k">3 projects</span>',
+      '  01  <a data-cs="scam">Scam Shield</a> \u2014 spot scam messages (solo, live demo)',
+      '  02  <a data-cs="sub">SubTrack</a> \u2014 subscription lifecycle (Odoo x Make-A-Ton)',
+      '  03  <a data-cs="campus">CampusDebug OS</a> \u2014 campus ops app (BPUT finalist, team lead)'].join("\n"); },
+    skills() { return 'C \u00b7 C++ \u00b7 JavaScript \u00b7 React \u00b7 Node.js \u00b7 Supabase \u00b7 HTML \u00b7 CSS \u00b7 Docker \u00b7 Git \u00b7 GitHub'; },
+    contact() { return ['find me here:',
+      '  ' + U("GitHub \u2197", "https://github.com/HaraPrasadGouda"),
+      '  ' + U("LinkedIn \u2197", "https://www.linkedin.com/in/hara-prasad-gouda-a1121b371")].join("\n"); },
+    resume() { window.open("Hara_Prasad_Gouda_Resume.pdf", "_blank", "noopener"); return 'opening resume \u2026'; },
+    hire() { return ['good taste. ' + U("GitHub \u2197", "https://github.com/HaraPrasadGouda") + ' \u00b7 ' + U("LinkedIn \u2197", "https://www.linkedin.com/in/hara-prasad-gouda-a1121b371"),
+      'or jump straight to the ' + U("resume \u2197", "Hara_Prasad_Gouda_Resume.pdf")].join("\n"); },
+    ls() { return 'projects/   about.md   stack.txt   resume.pdf   shots/'; },
+    date() { return new Date().toString(); },
+    clear() { itlog.innerHTML = ""; return null; },
+    exit() { closeTerm(); return null; },
+    scam() { closeTerm(); open("scam"); return null; },
+    sub() { closeTerm(); open("sub"); return null; },
+    campus() { closeTerm(); open("campus"); return null; },
+    sudo() { return '<span class="o">hara is not in the sudoers file. this incident will be reported \u2026 to my LinkedIn.</span>'; }
+  };
+  function runCmd(raw) {
+    const line = raw.trim(); if (!line) return;
+    const name = line.split(/\s+/)[0].toLowerCase(), arg = line.split(/\s+/).slice(1).join(" ");
+    print(`<span class="o">~ $</span> ${esc(line)}`);
+    if (name === "cat") {
+      if (arg === "about.md") print(ABOUT); else if (arg === "stack.txt") print(CMDS.skills());
+      else print(`<span class="o">cat: ${esc(arg || "")}: no such file \u00b7 try ls</span>`);
+      return;
+    }
+    const c = CMDS[name];
+    const out = c ? c() : `<span class="o">zsh: command not found: ${esc(name)} \u00b7 try <span class="u">help</span></span>`;
+    if (out != null) print(out);
+  }
+  const hist = []; let hi = 0;
+  iti.addEventListener("keydown", e => {
+    if (e.key === "Enter") { const v = iti.value; if (v.trim()) { hist.push(v); hi = hist.length; } iti.value = ""; runCmd(v); e.preventDefault(); }
+    else if (e.key === "ArrowUp") { if (hist.length) { hi = Math.max(0, hi - 1); iti.value = hist[hi]; } e.preventDefault(); }
+    else if (e.key === "ArrowDown") { hi = Math.min(hist.length, hi + 1); iti.value = hist[hi] || ""; e.preventDefault(); }
+  });
+  itlog.addEventListener("click", e => { const a = e.target.closest("a[data-cs]"); if (a) { closeTerm(); open(a.dataset.cs); } });
+  it.addEventListener("click", e => { if (e.target.hasAttribute("data-x")) closeTerm(); });
+  itlog.addEventListener("mousedown", () => setTimeout(() => { if (!it.hidden) iti.focus(); }, 0));
+  addEventListener("keydown", e => {
+    const typing = /^(INPUT|TEXTAREA)$/.test((e.target.tagName || ""));
+    if (e.key === "Escape") { if (!it.hidden) { closeTerm(); return; } }
+    if (e.key === "t" && !e.ctrlKey && !e.metaKey && !e.altKey && !typing && dlg.hidden && cm.hidden && it.hidden) { e.preventDefault(); openTerm(); }
+  });
 
   // ---- letter reveal on headings ----
   function split(el) { if (el.dataset.sp) return; el.dataset.sp = 1; const t = el.textContent; el.setAttribute("aria-label", t); el.textContent = "";
