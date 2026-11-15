@@ -91,7 +91,7 @@
       '  <span class="u">resume</span>      open the PDF',
       '  <span class="u">ls</span> · <span class="u">cat</span>    poke around the files',
       '  <span class="u">clear</span> · <span class="u">exit</span>'].join("\n"); },
-    whoami() { return '<b>Hara Prasad Gouda</b> \u2014 2nd-year CSE student at REC, Bhubaneswar. I build web apps that solve real problems, from spotting scams to running hostel gate passes.'; },
+    whoami() { return '<b>Hara Prasad Gouda</b> \u2014 2nd-year CSE student at REC, Bhubaneswar. I turn real-life problems into simple apps people actually use.'; },
     projects() { return ['<span class="k">3 projects</span>',
       '  01  <a data-cs="scam">Scam Shield</a> \u2014 spot scam messages (solo, live demo)',
       '  02  <a data-cs="sub">SubTrack</a> \u2014 subscription lifecycle (Odoo x Make-A-Ton)',
