@@ -67,6 +67,7 @@
     if (!dlg.hidden && e.key === "ArrowRight") { const n = $("#cs .sl-nx"); n && n.click(); } if (!dlg.hidden && e.key === "ArrowLeft") { const n = $("#cs .sl-p"); n && n.click(); }
   });
   const hint = document.createElement("button"); hint.className = "kbd-hint"; hint.type = "button"; hint.innerHTML = "press <kbd>/</kbd> menu · <kbd>t</kbd> terminal"; hint.addEventListener("click", openCmd); document.body.appendChild(hint);
+  const navcmd = document.getElementById("navcmd"); if (navcmd) navcmd.addEventListener("click", openCmd);
 
   // ---- interactive terminal easter egg (press t, or / menu → Interactive terminal) ----
   const it = document.createElement("div"); it.className = "it"; it.hidden = true; it.setAttribute("role", "dialog"); it.setAttribute("aria-modal", "true"); it.setAttribute("aria-label", "Interactive terminal");

@@ -18,6 +18,8 @@ main{position:relative;z-index:1}
 .nav nav{display:flex;gap:6px}
 .nav nav a{padding:9px 14px;border-radius:999px;border:1px solid transparent;color:var(--mute);transition:color .2s,border-color .2s,background .2s}
 .nav nav a:hover{color:var(--ink);border-color:var(--line);background:rgba(255,255,255,.03)}
+.navcmd{padding:9px 14px;border-radius:999px;border:1px solid transparent;background:none;color:var(--mute);font:600 14px var(--mono);cursor:pointer;min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;transition:color .2s,border-color .2s,background .2s}
+.navcmd:hover{color:var(--g);border-color:rgba(157,255,196,.35);background:rgba(157,255,196,.06)}
 
 .term{position:fixed;z-index:6;left:50%;top:50%;width:min(700px,calc(100vw - 28px));transform:translate(-50%,-50%);
   border:1px solid rgba(157,255,196,.22);border-radius:12px;background:rgba(6,10,12,.82);box-shadow:0 40px 90px -30px #000,0 0 60px -20px rgba(157,255,196,.18);overflow:hidden;opacity:0}
